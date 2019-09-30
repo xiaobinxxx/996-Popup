@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>996弹出层</title>
+  <link rel="stylesheet" href="./css/popup.css" type="text/css">
+  <link rel="stylesheet" href="./css/public.css" type="text/css">
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <script src="./js/popup.js"></script>
+  <style type="text/css">
+    .all{
+      width: 1200px;
+      margin: 0 auto;
+    }
+    .popup-show {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .show-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 40px;
+      cursor: pointer;
+      border: 1px solid #eeeeee;
+      border-radius: 4px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .show-list > span {
+      font-size: 14px;
+      color: #333333;
+    }
+    .popup-code{
+      width: 100%;
+    }
+    .popup-code textarea{
+      width: 100%;
+      height: 500px;
+      background-color: #000000;
+      color: #FFFFFF;
+      font-size: 14px;
+    }
+    .InputValue{
+      width: 90%;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid #eeeeee;
+      background-color: #ffffff;
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="all">
+    <div class="introduce">
+      <h3>弹出层介绍</h3>
+      <p>996弹出层（是我拍脑袋想出来的，侵权了请联系我）。一直在使用别人家弹出层，感觉不好用，源码也不好修改，索性就自己封装一个，方便自己使用吧！做个网站记录成果，方便使用</p>
+      <p><a href="http://static.996ico.top/996Popup/file/996Popup.zip" download="996Popup">下载996弹出层</a></p>
+    </div>
+    <h3>展示弹出层区</h3>
+    <div class="popup-show">
+      <div class="show-list" id="PopupAlert">
+        <span>普通弹出层</span>
+      </div>
+      <div class="show-list" id="PopupHtml">
+        <span>页面弹出层</span>
+      </div>
+      <div class="show-list" id="PopupIframe">
+        <span>iframe弹出层</span>
+      </div>
+      <div class="show-list" id="Toast">
+        <span>提示框</span>
+      </div>
+      <div class="show-list" id="Loading">
+        <span>loading层</span>
+      </div>
+      <div class="show-list" id="Prompt">
+        <span>input层</span>
+      </div>
+    </div>
+    <h3>代码区</h3>
+    <div class="popup-code">
+    <textarea>
+    // 普通弹出层
+    PopupAlert({
+        width: 300,
+        title: '询问',
+        content: '您是如何看待产品经理？',
+        BtnName: ['烦人', '奇葩'],
+      }, function (res) {
+        Toast('你的的观点我很认可', 1000,function () {
+          Toast('弹出完的回调函数，日常可能会用到吧', 2000);
+        });
+      }, function (err) {
+        Toast('他是史无前例的奇葩啊！！！', 1000);
+    });
+
+    // 页面弹出层
+    PopupHtml({
+      width: 300,
+      title: '询问',
+      content: '<h1>如何看待产品经理？</h1><h3>现在是用h1标签问你</h3>',
+    }, function (res) {
+
+    }, function (err) {
+      Toast('他是史无前例的奇葩啊！！！', 1000);
+    });
+
+    // Iframe弹出层
+    PopupIframe({
+        width: 893,
+        height: 600,
+        content: 'http://baidu.com/',
+        title: '搜一搜看看？'
+    });
+
+    // 提示框
+    Toast('这是一条轻量提示框');
+
+    // loading 弹出层
+    PopupLoading({
+      shade: ['0.7','#fff'] //0.7透明度的白色背景;
+    });
+
+    // input 层
+    PopupAlert({
+        width: 300,
+        height: 220,
+        content: '<input type="text" class="InputValue" placeholder="输入你想要获取的value值">',
+        InputClass: ['.InputValue'], // 想要获取的input class名字（支持多个input，支持id选择器）
+        title: '填写你需要的值'
+      },function (res) {
+        Toast(`以数组的方式返回${JSON.stringify(res)}`,2000);
+      },function (err) {
+        Toast(`取消不会获取到值`,2000);
+    })
+
+    // 关闭弹出层
+    ClosePopup();
+    </textarea>
+
+    </div>
+  </div>
+  <script>
+    // 普通弹出层
+    $('#PopupAlert').click(function () {
+      PopupAlert({
+        width: 300,
+        title: '询问',
+        content: '您是如何看待产品经理？',
+        BtnName: ['烦人', '奇葩'],
+      }, function (res) {
+        Toast('你的的观点我很认可', 1000,function () {
+          Toast('弹出完的回调函数，日常可能会用到吧', 2000);
+        });
+      }, function (err) {
+        Toast('他是史无前例的奇葩啊！！！', 1000);
+      });
+    });
+    // 页面弹出层
+    $('#PopupHtml').click(function () {
+      PopupHtml({
+        width: 300,
+        title: '询问',
+        content: '<h1>如何看待产品经理？</h1><h3>现在是用h1标签问你</h3>',
+      }, function (res) {
+
+      }, function (err) {
+        Toast('他是史无前例的奇葩啊！！！', 1000);
+      });
+    });
+    // Iframe弹出层
+    $('#PopupIframe').click(function () {
+      PopupIframe({
+        width: 893,
+        height: 600,
+        content: 'http://baidu.com/',
+        title: '搜一搜看看？'
+      });
+    });
+    // 提示框
+    $('#Toast').click(function () {
+      Toast('这是一条轻量提示框');
+    });
+    // loading 弹出层
+    $('#Loading').click(function () {
+      PopupLoading({
+        shade: ['0.7','#fff']
+      });
+      setTimeout(()=>{
+        ClosePopup();
+      },2000)
+    });
+    // input 层
+    $('#Prompt').click(function () {
+      PopupAlert({
+        width: 300,
+        height: 220,
+        content: '<input type="text" class="InputValue" placeholder="输入你想要获取的value值">',
+        InputClass: ['.InputValue'], // 想要获取的input class名字（支持多个input，支持id选择器）
+        title: '填写你需要的值'
+      },function (res) {
+        Toast(`以数组的方式返回${JSON.stringify(res)}`,2000);
+      },function (err) {
+        Toast(`取消不会获取到值`,2000);
+      })
+    });
+
+    console.log("%c欢迎来探索996弹出层\n喜欢的请在GitHub给我标注一个星吧！\n", "color:#e1244e;font-size:14px;text-shadow:3px 1px 2px #e1244e9e;")
+    console.log('                                      LWKKKKKKKWKKEGGDEEGGDfLEEKDLDKEEKDEGGEKKEDKG:                 \n' +
+      '                                     i##W######EEKKW######LEKLLD#fGKKK#EEEKDGE#WK#K.                \n' +
+      '                                     E#####WWEDK###########K#KfGDGf#EEKEKDLDDKK###KD:               \n' +
+      '                                    jW#####EDW#########W######K#fLLW#LGLDG#DGGDKWW#Kt               \n' +
+      '                                 .####K###DG######KEKW###KKKKE##LtDEKffLD##KDEGEKKW#Wj              \n' +
+      '                                ,#;DG####DK####DDLGGGGED###GEDD#WtDDDLftD###KLLGGKDDEWG             \n' +
+      '                                G.,KK###EK###KtiLKKW##KKDD##GDD##tDKL#;D#K#EGffLKK#####f            \n' +
+      '                               ;f; E###KW###DfLK#########KLDKLE##DG#f#tD###Kf;G#########            \n' +
+      '                               ;D  K##KE###DLjD######W#W##KfLEtK##E#DDGWE##EtE#KE#######t           \n' +
+      '                               ;L :W#WK##KDKLKK#######KW##EDDfDt##K#DEE#K##Df#DK#########           \n' +
+      '                                ffDKDK##WfKLKW############KffEftL#K#KKK#E##G#Gf#EK#######;          \n' +
+      '                                 D###KKKDKEKW###############fjDGtD##K#W#DK#K#t#DEK#W###W#D          \n' +
+      '                               G######WW############KK#####KEffGjGW#KK#EGW##KK#LLW####W###          \n' +
+      '                              t#########################KWWGfKEDKfK##K#Gj#W####GfLK####W#K          \n' +
+      '                              i#L#######################WLtftjK#WDfE#K#KtfEW##KfjLDKK##WDD          \n' +
+      '                              tE;######################W#DfLEDGEWWKDG#EKG;DK#W###KE#######:         \n' +
+      '                               Lf#K###################WKDDWKWKEGfLGGGGEDDtfD##EEKEDW##WW##          \n' +
+      '                              :#########################DtGLfLi;ii;;itGLGtjGW#KLt;fK#####E          \n' +
+      '                             ;W############W###########EjGtii,:,: .::,iGGtitGW#WKWDGK#K##t          \n' +
+      '                             :E####WW#################KGLi,,:,:   ..:,iiLi:;iGKDiL##KW###           \n' +
+      '                              L##W############W######KGfti;,:.     ...:,;,::,ifEKDGW#E###           \n' +
+      '                             f####WW#######KWW#WW##EKGjti,::.       ..:,,:::::,LW#EGDf##L           \n' +
+      '                             ##EW#KWKW###WK##KEEDLGGj;,::...       . ..::...::,;G#DDEEW#;           \n' +
+      '                             ##ijfDEW###EE##f,,,,,;i,:::....         .......::,,tKELWW##i           \n' +
+      '                           j#####DGGGD#EK#Wt:::,,,,::::......      .........:::,tGELK###;           \n' +
+      '                          D#E#DG######WW#G,.::::,:...........  .     ........:::tDDfE###.           \n' +
+      '                        :#Ei##EKt:jDtEWD,.:::::,,;i;,.    ..    .  ..........:::tKKDL#KWf           \n' +
+      '                       t#t ###ftWtLLDEf,:,::::::,:;itL;,.  ..     .........:.::,jK#DK#KEt           \n' +
+      '                     D#f ,W###E .,:,:ii::::.::::,,,::.;tj;. .. . ............::;L##KK#WW;           \n' +
+      '                    Lf :iW##K##. .:.:i;,,::::..::,,::...:tf, ...............::;tE###E##K            \n' +
+      '                   ;L jL###K####.   :ii;,:::....:,iii;,:. iLi  .......:....::,ijW###K##G            \n' +
+      '                    i#####DW##K##Lij:it;,:,:.....:ijEEWGGt,ift:....:..:....:,;tf####W#W;            \n' +
+      '                     .f############W;it;,,,::.....:;ffEK#WEfitt,:::::::.::::,;iD######W.            \n' +
+      '                        ,#########Kjiiii;,,:::.....,,:tff;tEfiii::::::::::.::;;W#####WD:            \n' +
+      '                      :;;#W#######E;tii;;,,::......:,,,;. .fLi;;,::::::::,;fGEK#KW###GE:            \n' +
+      '                     ::.#K########E;tii;;,,,:.... ..:,,;;,iit,i::::,::ijLGGGLLE#KWW#KDj             \n' +
+      '                     .t;##########E;ti;;;,,,::...  ..:,;iitt,.,,..::jKE##ELtiiW#DW##LLi             \n' +
+      '                     :t###KW######E;t;;,;;,,::..   . .:::,::. ,, .:GEEKKff#KjW#KD#W#tLi             \n' +
+      '                     . ##D##W#####tit;;,;;,,::...   ....:....::: .iEi,tt :WWK###f#GKL;.             \n' +
+      '                      tKL#WDKKK##E;tt;;,;;,,,:...   .::......::: :j:,:,::tKtL#WEG#GfL::             \n' +
+      '                      DGWKL##E##D;;tt;,,;;,,,::.........   ...:. ,t::,iitGj;LfWLWDtG,..             \n' +
+      '                     ;GKWDWEjK#W,i;tt;,,,;,,:::.........  ....:  ;i:::,ifj,tL;ffEjEj;               \n' +
+      '                    .EEGtfEfKE#t,;;tt,,,,,,,,:::........  ..... .ii,::::,,,i;t;EjtL:                \n' +
+      '                    D#jGGfE#W#K,;;,tt,,,,,,,,,:::.............  .i;,:::,,,;:;.tEiEi                 \n' +
+      '                   jKf;#tK#DK#;,,;;it,,,,,,,,,:::.....:.::::..  :i;:::::,,it,:GfDj.                 \n' +
+      '                  :LK:GKKKE##L:,,,;it;,,,:,,:,,:::.:::::.::::   ,i;::::,,ii. GGLL;                  \n' +
+      '                   EE:#EGW###,,,,,,it;,,:,::::::::::::..:,..:  .,i,::,,:;, jGGLLi                   \n' +
+      '                   GGEKWK###t,,:,,,iti,,::::::::::::.   ,:...  .,i:::::,;iDEjffi:                   \n' +
+      '                    j######ti,:,,,,;ti,:,::::::::::...  :i;..  .,;:::,,ifEE;;tt::                   \n' +
+      '                     DjG##t:,,::,,,,it,,,:::::..:. .....  it,. .i;::,,i,;; .:t:::                   \n' +
+      '                       ##f:,,,::,,,,;j;,,,::::..:it   ...  ,i.:fj,:,,it   .  i: ,                   \n' +
+      '                      .#L:,,,::::,,,,tt,,,::::.:: iL,     ..ifLft,,;i: .i:   t  i                   \n' +
+      '                       j:,,,,::::,,,,;f;,,::::::.  iLji,:... ,;;;;i,f:  .    i  t.                  \n' +
+      '                     ,i,:::,::::::,,,,tj,,::::::.. ,;iLj;;,:,;,;;i,t#,  t    ;  :;                  \n' +
+      '                   ,ii,::::,::::::,:,,;ft,,::::.....tt iDDjtttLit,t#f. .:    ,. :;                  \n' +
+      '                :,ii,:::::,,:..::::::,,ifi,,:::.:...:ji::tjLLGji,t##E  :      : .,                  \n' +
+      '            .:;;;,,:::::.,::.....:::::,,tf;,,::......:jt;,,iLf;;:f##f  :      .  ,                  \n' +
+      '         .,i;;,::::::::.::::..:::::::::,;tj;,:::......,tLjjft;iG K#W:  :         ;                  \n' +
+      '      :,;;;:::::....::::..::.::::::.::::,;tt;,::.......:,itti G ;KKG:         . .:                  \n' +
+      '.:,,;;;;,:::::...........::.:.....::.::::,itf,::::.....:::;iiE .DWLG.          ::,                  \n' +
+      ',;;;,,,,::::.............:.........::.:::,;tjf;:::...:::,,,fWiGLWttE           ;t .                 \n' +
+      ':,,,,,,,,,,::.::..:......:..........:..::,,iijLi:::::::,,,t#WEfGt jL           ,i                   \n' +
+      '::...:::,,;,,::::........:.............::,:,ittLj,::::::,f .  ;f iD:           ::                   \n' +
+      '..:.....::,,;,,::......................::,,:,itjLGfi,,,tD#LG:jD.Lj,            j: .                 \n' +
+      '.........:::,,i,,::.....:................:::,;ifLLKWKEDEDfDLGKGDtj      .     :t                    \n' +
+      '...........::::,;,,::::..::...............:::,iffLDDGGLffjffLGt.;      ..     ;.                    \n' +
+      ':...... ...::::::,,,,,::::... .............::,itfLGGfffjfjtttff:       ;      ,.  .                 \n' +
+      '.::........::::...::,,,,,:::..........  ....:;;;tfffjffjjtititff:     ,.      ,                     \n' +
+      '........ ..::.........:,,:::::........  ....:,,,itttitjtttitiiL;ji    .      ...                    \n' +
+      '................      .....:::.............:::,,;ii;iitjjjttiif,;iii .       ,::                    \n' +
+      '................         .....::...........:::,,;ittfffLffffffLt;iftj;        t                     \n' +
+      '.....   .........        .... .:.........:::::,,;;iitii;;;;;;;L;iL;iiit,     ii                     \n' +
+      '.....  ...... .          ...   .......:..::::::::::::::::::::.iit:,,,;;it;.  L                      \n' +
+      '....   .........     . ....    ..............::::.........:::.,f,,::,,,,;ii;tf.                     \n' +
+      ' . .  ........        ....      .............:............:.:.:t,.::::::::,,ti;     ')
+
+  </script>
+</body>
+</html>
