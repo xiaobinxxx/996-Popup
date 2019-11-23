@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="b4d0441f-a61b-457f-9d5b-d3f4ef434be3" name="996Ppopup" url="http://149.129.77.101">
-        <fileTransfer host="149.129.77.101" port="21" rootFolder="/996Popup">
+      <webServer id="b4d0441f-a61b-457f-9d5b-d3f4ef434be3" name="996Ppopup" url="http://49.234.95.115">
+        <fileTransfer host="49.234.95.115" port="21" rootFolder="/996Popup">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

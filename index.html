@@ -2,6 +2,16 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="iShop"/>
+  <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <!--iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览-->
+  <meta content=yes name=apple-mobile-web-app-capable />
+  <meta content=yes name=apple-touch-fullscreen />
+  <!--告诉设备忽略将页面中的数字识别为电话号码-->
+  <meta content="telephone=no,email=no" name=format-detection />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+  <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
   <title>996弹出层</title>
   <link rel="stylesheet" href="./css/popup.css" type="text/css">
   <link rel="stylesheet" href="./css/public.css" type="text/css">
@@ -9,7 +19,7 @@
   <script src="./js/popup.js"></script>
   <style type="text/css">
     .all{
-      width: 1200px;
+      max-width: 1200px;
       margin: 0 auto;
     }
     .popup-show {
@@ -53,6 +63,14 @@
       background-color: #ffffff;
       padding: 0 10px;
     }
+    .import{
+      font-size: 18px;
+      color: #d44950;
+      font-weight: bold;
+    }
+    .import span{
+      color: #4f9fcf;
+    }
   </style>
 </head>
 <body>
@@ -60,7 +78,10 @@
     <div class="introduce">
       <h3>弹出层介绍</h3>
       <p>996弹出层（是我拍脑袋想出来的，侵权了请联系我）。一直在使用别人家弹出层，感觉不好用，源码也不好修改，索性就自己封装一个，方便自己使用吧！做个网站记录成果，方便使用</p>
-      <p><a href="http://static.996ico.top/996Popup/file/996Popup.zip" download="996Popup">下载996弹出层</a></p>
+      <p><a href="http://static.996ico.cn/996Popup/file/996Popup.zip" download="996Popup">下载996弹出层</a></p>
+      <p style="font-weight: bold;">使用方法:(文件引入)依赖jquery</p>
+      <p class="import">css: <span><span><</span>link rel="stylesheet"</span> href="/css/popup.css" type="text/css"></p>
+      <p class="import">js: <span><span><</span>script</span> src="/js/popup.js"></script></p>
     </div>
     <h3>展示弹出层区</h3>
     <div class="popup-show">
@@ -192,9 +213,9 @@
       PopupLoading({
         shade: ['0.7','#fff']
       });
-      setTimeout(()=>{
-        ClosePopup();
-      },2000)
+<!--      setTimeout(()=>{-->
+<!--        ClosePopup();-->
+<!--      },2000)-->
     });
     // input 层
     $('#Prompt').click(function () {

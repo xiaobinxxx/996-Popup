@@ -26,7 +26,7 @@ function PopupAlert(params,callback,Catch){
     "</div>" +
     "</div></div>");
   $('body').append(pop);
-  $('.Popup').css({
+  $('.Popups .Popup').css({
     'width': width,
     'height': 'auto',
   });
@@ -38,15 +38,15 @@ function PopupAlert(params,callback,Catch){
   drag();
   // 事件区
   $('.affirm').on('click',function () {
-    $('.Popup').fadeOut(300,function () {
-      $(".Popups").remove();
+    $('.Popups .Popup').fadeOut(300,function () {
       if (typeof callback === "function") {
         callback(InputValue);
+        $(".Popups").remove();
       }
     });
   });
   $('.cancel').on('click',function () {
-    $('.Popup').fadeOut(300,function () {
+    $('.Popups .Popup').fadeOut(300,function () {
       $(".Popups").remove();
       if (typeof Catch === "function") {
         Catch(false);
@@ -69,6 +69,7 @@ function PopupHtml(params,callback,Catch) {
   let title = params.title||'提示';
   let InputClass = params.InputClass||[];
   let InputValue = [];
+  let BtnName = params.BtnName||['确定','取消'];
   let pop = $("<div class='Popups'>"+
     "<div class='Popup'>" +
     "<div class='title'>" +
@@ -76,9 +77,13 @@ function PopupHtml(params,callback,Catch) {
     "<span class='cha cancel'></span>" +
     "</div>" +
     "<div class='content'>" + content + "</div>" +
+    "<div class='btn'>" +
+    "<span class='affirm'>"+ BtnName[0] +"</span>" +
+    "<span class='cancel'>"+ BtnName[1] +"</span>" +
+    "</div>" +
     "</div></div>");
   $('body').append(pop);
-  $('.Popup').css({
+  $('.Popups .Popup').css({
     'width': width,
     'height': height,
   });
@@ -90,16 +95,16 @@ function PopupHtml(params,callback,Catch) {
   drag();
   // 事件区
   $('.affirm').on('click',function () {
-    $('.Popup').fadeOut(300,function () {
-      $(".Popups").remove();
+    $('.Popups .Popup').fadeOut(300,function () {
       if (typeof callback === "function") {
         callback(InputValue);
+        $(".Popups").remove();
       }
     });
   });
   // 事件区
   $('.cancel').on('click',function () {
-    $('.Popup').fadeOut(300,function () {
+    $('.Popups .Popup').fadeOut(300,function () {
       $(".Popups").remove();
       if (typeof Catch === "function") {
         Catch(false);
@@ -130,7 +135,7 @@ function PopupIframe(params,callback,Catch) {
     "<div class='content'><iframe class='Iframe-popup' src="+ content +"></iframe></div>" +
     "</div></div>");
   $('body').append(pop);
-  $('.Popup').css({
+  $('.Popups .Popup').css({
     'width': width,
     'height': height,
   });
@@ -141,7 +146,7 @@ function PopupIframe(params,callback,Catch) {
   drag();
   // 事件区
   $('.cancel').on('click',function () {
-    $('.Popup').fadeOut(300,function () {
+    $('.Popups .Popup').fadeOut(300,function () {
       $(".Popups").remove();
       if (typeof Catch === "function") {
         Catch(false);
@@ -160,7 +165,7 @@ function Toast(msg,duration,callback){
   duration=isNaN(duration)?3000:duration;
   var m = document.createElement('div');
   m.innerHTML = msg;
-  m.style.cssText="max-width:60%;min-width: 150px;padding:0 14px;height: 40px;color: rgb(255, 255, 255);line-height: 40px;text-align: center;border-radius: 4px;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: 999999;background: rgba(0, 0, 0,.5);font-size: 16px;";
+  m.style.cssText="max-width:60%;min-width: 150px;padding:10px 10px;color: rgb(255, 255, 255);text-align: center;border-radius: 4px;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: 999999;background: rgba(0, 0, 0,.5);font-size: 16px;";
   document.body.appendChild(m);
   setTimeout(function() {
     var d = 0.5;
@@ -172,6 +177,14 @@ function Toast(msg,duration,callback){
     }
   }, duration);
 }
+
+/**
+ * loading
+ * @param params
+ * @param callback
+ * @param Catch
+ * @constructor
+ */
 function PopupLoading(params,callback,Catch) {
   let shade = params.shade||[0.1,'#fff']; //0.1透明度的白色背景;
   let pop = $('<div class="Popups">' +
@@ -192,6 +205,7 @@ function PopupLoading(params,callback,Catch) {
     'background': shade[1],
   });
 }
+
 /**
  * 关闭弹窗
  * @constructor
@@ -208,7 +222,7 @@ function drag() {
   // 获取浏览器窗口
   var windowScreen = document.documentElement;
   // 获取main的div元素
-  var main_div = $('.Popup');
+  var main_div = $('.Popups .Popup');
   // 通过窗口宽高和div宽高计算位置
   var main_left = (windowScreen.clientWidth - main_div.width())/2 + "px";
   var main_top = (windowScreen.clientHeight - main_div.height())/2 + "px";
@@ -228,17 +242,17 @@ function drag() {
       var y = e.pageY - distenceY;
       if (x < 0) {
         x = 0;
-      } else if (x > $(document).width() - $('.Popup').outerWidth(true)) {
-        x = $(document).width() - $('.Popup').outerWidth(true);
+      } else if (x > $(document).width() - $('.Popups .Popup').outerWidth(true)) {
+        x = $(document).width() - $('.Popups .Popup').outerWidth(true);
       }
 
       if (y < 0) {
         y = 0;
-      } else if (y > $(document).height() - $('.Popup').outerHeight(true)) {
-        y = $(document).height() - $('.Popup').outerHeight(true);
+      } else if (y > $(document).height() - $('.Popups .Popup').outerHeight(true)) {
+        y = $(document).height() - $('.Popups .Popup').outerHeight(true);
       }
 
-      $('.Popup').css({
+      $('.Popups .Popup').css({
         'left': x + 'px',
         'top': y + 'px'
       });
